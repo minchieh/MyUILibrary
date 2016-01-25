@@ -15,7 +15,7 @@ namespace UITest
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ColorArrowButtonTest());
+            Application.Run(new Frm_Main());
         }
     }
 }
