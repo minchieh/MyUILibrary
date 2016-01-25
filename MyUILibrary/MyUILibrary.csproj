@@ -47,11 +47,20 @@
     <Compile Include="ColorArrowButton.Designer.cs">
       <DependentUpon>ColorArrowButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="ColorProgressBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ColorProgressBar.Designer.cs">
+      <DependentUpon>ColorProgressBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ColorArrowButton.resx">
       <DependentUpon>ColorArrowButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ColorProgressBar.resx">
+      <DependentUpon>ColorProgressBar.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

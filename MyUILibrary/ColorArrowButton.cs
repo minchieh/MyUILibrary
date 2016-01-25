@@ -10,34 +10,39 @@ using System.Drawing.Drawing2D;
 
 namespace MyUILibrary
 {
-    /// <summary>
-    /// 箭頭指向方向
-    /// </summary>
-    public enum DirectionEnum
-    {
-        /// <summary>
-        /// 左
-        /// </summary>
-        Left,
-        /// <summary>
-        /// 右
-        /// </summary>
-        Right,
-        /// <summary>
-        /// 上
-        /// </summary>
-        Up,
-        /// <summary>
-        /// 下
-        /// </summary>
-        Down
-    }
 
     /// <summary>
     /// 分層顏色箭頭按鈕
     /// </summary>
     public partial class ColorArrowButton : UserControl
     {
+        #region 列舉
+
+        /// <summary>
+        /// 箭頭指向方向
+        /// </summary>
+        public enum DirectionEnum
+        {
+            /// <summary>
+            /// 左
+            /// </summary>
+            Left,
+            /// <summary>
+            /// 右
+            /// </summary>
+            Right,
+            /// <summary>
+            /// 上
+            /// </summary>
+            Up,
+            /// <summary>
+            /// 下
+            /// </summary>
+            Down
+        }
+
+        #endregion
+
         #region 事件委派
 
         /// <summary>
@@ -155,9 +160,16 @@ namespace MyUILibrary
             {
                 if (_setEdgeWidth != value)
                 {
-                    _setEdgeWidth = value;
-                    _generationLevelPointProcess = true;
-                    this.Invalidate();
+                    if (value >= 0)
+                    {
+                        _setEdgeWidth = value;
+                        _generationLevelPointProcess = true;
+                        this.Invalidate();
+                    }
+                    else
+                    {
+                        MessageBox.Show("設定值需大於 0");
+                    }
                 }
             }
         }
