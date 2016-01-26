@@ -21,5 +21,11 @@ namespace UITest
             ColorArrowButtonTest obj = new ColorArrowButtonTest();
             obj.Show();
         }
+
+        private void btn_ColorProgressBarTest_Click(object sender, EventArgs e)
+        {
+            ColorProgressBarTest obj = new ColorProgressBarTest();
+            obj.Show();
+        }
     }
 }

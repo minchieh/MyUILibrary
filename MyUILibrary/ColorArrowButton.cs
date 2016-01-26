@@ -329,6 +329,9 @@ namespace MyUILibrary
 
             // 註冊尺寸事件
             this.Resize += ColorArrowButton_Resize;
+
+            // 啟用雙緩衝
+            this.DoubleBuffered = true;
         }
 
 

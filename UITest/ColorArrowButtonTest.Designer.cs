@@ -92,7 +92,7 @@
             this.Controls.Add(this.colorArrowButton2);
             this.Controls.Add(this.colorArrowButton1);
             this.Name = "ColorArrowButtonTest";
-            this.Text = "Form1";
+            this.Text = "ColorArrowButtonTest";
             this.ResumeLayout(false);
 
         }

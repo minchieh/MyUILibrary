@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
-
+using System.Drawing;
 namespace MyUILibrary
 {
     public partial class ColorProgressBar : UserControl
@@ -189,6 +189,9 @@ namespace MyUILibrary
         #endregion
 
         internal int _setEdgeWidth = 3;
+        /// <summary>
+        /// 設定線框
+        /// </summary>
         public int setEdgeWidth
         {
             get
@@ -209,6 +212,26 @@ namespace MyUILibrary
             }
         }
 
+        internal bool _setTextDisplay = true;
+        /// <summary>
+        /// 設定進度文字是否顯示
+        /// </summary>
+        public bool setTextDisplay
+        {
+            get
+            {
+                return _setTextDisplay;
+            }
+            set
+            {
+                if (_setTextDisplay != value)
+                {
+                    _setTextDisplay = value;
+                    this.Invalidate();
+                }
+            }
+        }
+
         #endregion
 
         #region 初始化
@@ -219,6 +242,9 @@ namespace MyUILibrary
         public ColorProgressBar()
         {
             InitializeComponent();
+
+            // 啟用雙緩衝
+            this.DoubleBuffered = true;
         }
 
         #endregion
@@ -235,32 +261,30 @@ namespace MyUILibrary
             float w_low = _setEdgeWidth;
             float w_high = Width - _setEdgeWidth;
 
-            PointF[] EdgePoints = new PointF[5];
-            EdgePoints[0] = new PointF(w_low, h_low);
-            EdgePoints[1] = new PointF(w_low, h_high);
-            EdgePoints[2] = new PointF(w_high, h_high);
-            EdgePoints[3] = new PointF(w_high, h_low);
-            EdgePoints[4] = EdgePoints[0];
+            PointF[] edgePoints = new PointF[5];
+            edgePoints[0] = new PointF(w_low, h_low);
+            edgePoints[1] = new PointF(w_low, h_high);
+            edgePoints[2] = new PointF(w_high, h_high);
+            edgePoints[3] = new PointF(w_high, h_low);
+            edgePoints[4] = edgePoints[0];
 
             // 繪製背景
-            Brush BackgroundBrush = new SolidBrush(_setBackgroundColor);
-            g.FillPolygon(BackgroundBrush, EdgePoints);
-            BackgroundBrush.Dispose();
-
+            Brush backgroundBrush = new SolidBrush(_setBackgroundColor);
+            g.FillPolygon(backgroundBrush, edgePoints);
+            backgroundBrush.Dispose();
 
             // 繪製邊框
-            Pen EdgePen = new Pen(_setEdgeColor, _setEdgeWidth);
-            g.DrawLines(EdgePen, EdgePoints);
-            EdgePen.Dispose();
+            Pen edgePen = new Pen(_setEdgeColor, _setEdgeWidth);
+            g.DrawLines(edgePen, edgePoints);
+            edgePen.Dispose();
 
+            // 繪製進度 
             if (_setValue == 0)
             {
                 return;
             }
-
-            // 繪製進度
-            RectangleF ProgressRectangle = new RectangleF(0, 0, 100, 100);
-            LinearGradientBrush ProgressBrush = new LinearGradientBrush(ProgressRectangle, _setStartColor, _setEndColor, LinearGradientMode.Horizontal);
+            RectangleF progressRectangle = new RectangleF(0, 0, 100, 100);
+            LinearGradientBrush progressBrush = new LinearGradientBrush(progressRectangle, _setStartColor, _setEndColor, LinearGradientMode.Horizontal);
 
             w_low = 1.5f * w_low;
             h_low = 1.5f * h_low;
@@ -272,21 +296,69 @@ namespace MyUILibrary
             {
                 v = (w_high - w_low) * _setValue / 100;
 
-                ProgressRectangle = new RectangleF(w_low, h_low, v, h_high - h_low);
-                ProgressBrush = new LinearGradientBrush(ProgressRectangle, _setStartColor, _setEndColor, LinearGradientMode.Horizontal);
+                progressRectangle = new RectangleF(w_low, h_low, v, h_high - h_low);
+                progressBrush = new LinearGradientBrush(progressRectangle, _setStartColor, _setEndColor, LinearGradientMode.Horizontal);
             }
             else
             {
                 v = (h_high - h_low) * _setValue / 100;
 
-                ProgressRectangle = new RectangleF(w_low, h_low, w_high - w_low, v);
-                ProgressBrush = new LinearGradientBrush(ProgressRectangle, _setStartColor, _setEndColor, LinearGradientMode.Vertical);
+                progressRectangle = new RectangleF(w_low, h_high - v, w_high - w_low, v);
+                progressBrush = new LinearGradientBrush(progressRectangle, _setStartColor, _setEndColor, -90f);
             }
 
-            g.FillRectangle(ProgressBrush, ProgressRectangle);
+            g.FillRectangle(progressBrush, progressRectangle);
 
-            ProgressBrush.Dispose();
-            
+            // 繪製進度文字
+            if (_setTextDisplay)
+            {
+                int size = 14;
+
+                // 量測文字尺寸
+                Font font = new Font("Arial", size);
+                SizeF textSize = g.MeasureString(_setValue.ToString(), font);
+
+                modifyLoop:
+                if (size == 1)
+                {
+                    goto modifyFinish;
+                }
+
+                if (_setDirection == DirectionEnum.Horizontal)
+                {
+                    if (textSize.Height > Height)
+                    {
+                        --size;
+                        font.Dispose();
+                        font = new Font("Arial", size);
+                        textSize = g.MeasureString(_setValue.ToString(), font);
+                        goto modifyLoop;
+                    }
+                }
+                else
+                {
+                    if (textSize.Width > Width)
+                    {
+                        --size;
+                        font.Dispose();
+                        font = new Font("Arial", size);
+                        textSize = g.MeasureString(_setValue.ToString(), font);
+                        goto modifyLoop;
+                    }
+                }
+
+                modifyFinish:
+                PointF textPoint = new PointF((_setEdgeWidth + Width - textSize.Width) / 2,
+                    (_setEdgeWidth + Height - textSize.Height) / 2);
+
+                Brush textBrush = new SolidBrush(_setTextColor);
+                g.DrawString(_setValue.ToString(), font, textBrush, textPoint);
+
+                textBrush.Dispose();
+                font.Dispose();
+            }
+
+            progressBrush.Dispose();
 
         }
 
