@@ -65,13 +65,13 @@
             // 
             this.colorProgressBar1.Location = new System.Drawing.Point(207, 26);
             this.colorProgressBar1.Name = "colorProgressBar1";
-            this.colorProgressBar1.setBackgroundColor = System.Drawing.Color.White;
+            this.colorProgressBar1.setBackgroundColor = System.Drawing.Color.Transparent;
             this.colorProgressBar1.setDirection = MyUILibrary.ColorProgressBar.DirectionEnum.Vertical;
-            this.colorProgressBar1.setEdgeColor = System.Drawing.Color.Black;
-            this.colorProgressBar1.setEdgeWidth = 3;
-            this.colorProgressBar1.setEndColor = System.Drawing.Color.DarkSlateBlue;
+            this.colorProgressBar1.setEdgeColor = System.Drawing.Color.Transparent;
+            this.colorProgressBar1.setEdgeWidth = 0;
+            this.colorProgressBar1.setEndColor = System.Drawing.Color.Black;
             this.colorProgressBar1.setStartColor = System.Drawing.Color.Lavender;
-            this.colorProgressBar1.setTextColor = System.Drawing.Color.Black;
+            this.colorProgressBar1.setTextColor = System.Drawing.Color.DarkRed;
             this.colorProgressBar1.setTextDisplay = true;
             this.colorProgressBar1.setValue = 80;
             this.colorProgressBar1.Size = new System.Drawing.Size(35, 202);
