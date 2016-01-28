@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing;
+using System.Windows.Forms;
+
 namespace MyUILibrary
 {
     public partial class ColorProgressBar : UserControl
@@ -17,16 +11,27 @@ namespace MyUILibrary
         /// <summary>
         /// 方向列舉
         /// </summary>
+        /// <summary>
+        /// 箭頭指向方向
+        /// </summary>
         public enum DirectionEnum
         {
             /// <summary>
-            /// 水平
+            /// 左
             /// </summary>
-            Horizontal,
+            Left,
             /// <summary>
-            /// 垂直
+            /// 右
             /// </summary>
-            Vertical
+            Right,
+            /// <summary>
+            /// 上
+            /// </summary>
+            Up,
+            /// <summary>
+            /// 下
+            /// </summary>
+            Down
         }
 
         #endregion
@@ -37,7 +42,10 @@ namespace MyUILibrary
 
         #region 公開屬性
 
-        internal DirectionEnum _setDirection = DirectionEnum.Horizontal;
+        /// <summary>
+        /// 設定進度方向
+        /// </summary>
+        protected DirectionEnum _setDirection = DirectionEnum.Right;
         /// <summary>
         /// 設定進度方向
         /// </summary>
@@ -57,7 +65,10 @@ namespace MyUILibrary
             }
         }
 
-        internal int _setValue = 0;
+        /// <summary>
+        /// 設定進度值
+        /// </summary>
+        protected int _setValue = 0;
         /// <summary>
         /// 設定進度值
         /// </summary>
@@ -86,7 +97,10 @@ namespace MyUILibrary
 
         #region 顏色
 
-        internal Color _setBackgroundColor = Color.White;
+        /// <summary>
+        /// 設定背景顏色
+        /// </summary>
+        protected Color _setBackgroundColor = Color.White;
         /// <summary>
         /// 設定背景顏色
         /// </summary>
@@ -106,7 +120,10 @@ namespace MyUILibrary
             }
         }
 
-        internal Color _setStartColor = Color.OrangeRed;
+        /// <summary>
+        /// 設定起始顏色
+        /// </summary>
+        protected Color _setStartColor = Color.OrangeRed;
         /// <summary>
         /// 設定起始顏色
         /// </summary>
@@ -126,7 +143,10 @@ namespace MyUILibrary
             }
         }
 
-        internal Color _setEndColor = Color.DarkRed;
+        /// <summary>
+        /// 設定結束顏色
+        /// </summary>
+        protected Color _setEndColor = Color.DarkRed;
         /// <summary>
         /// 設定結束顏色
         /// </summary>
@@ -146,7 +166,10 @@ namespace MyUILibrary
             }
         }
 
-        internal Color _setEdgeColor = Color.Black;
+        /// <summary>
+        /// 設定邊框顏色
+        /// </summary>
+        protected Color _setEdgeColor = Color.Black;
         /// <summary>
         /// 設定邊框顏色
         /// </summary>
@@ -166,7 +189,10 @@ namespace MyUILibrary
             }
         }
 
-        internal Color _setTextColor = Color.Black;
+        /// <summary>
+        /// 設定文字顏色
+        /// </summary>
+        protected Color _setTextColor = Color.Black;
         /// <summary>
         /// 設定文字顏色
         /// </summary>
@@ -188,7 +214,10 @@ namespace MyUILibrary
 
         #endregion
 
-        internal int _setEdgeWidth = 3;
+        /// <summary>
+        /// 設定線框
+        /// </summary>
+        protected int _setEdgeWidth = 3;
         /// <summary>
         /// 設定線框
         /// </summary>
@@ -212,7 +241,10 @@ namespace MyUILibrary
             }
         }
 
-        internal bool _setTextDisplay = true;
+        /// <summary>
+        /// 設定進度文字是否顯示
+        /// </summary>
+        protected bool _setTextDisplay = true;
         /// <summary>
         /// 設定進度文字是否顯示
         /// </summary>
@@ -292,21 +324,30 @@ namespace MyUILibrary
             h_high = h_high - 0.5f * _setEdgeWidth;
 
             float v;
-            if (_setDirection == DirectionEnum.Horizontal)
+            switch (_setDirection)
             {
-                v = (w_high - w_low) * _setValue / 100;
+                case DirectionEnum.Right:
+                    v = (w_high - w_low) * _setValue / 100;
+                    progressRectangle = new RectangleF(w_low, h_low, v, h_high - h_low);
+                    progressBrush = new LinearGradientBrush(progressRectangle, _setStartColor, _setEndColor, LinearGradientMode.Horizontal);
+                    break;
+                case DirectionEnum.Left:
+                    v = (w_high - w_low) * _setValue / 100;
+                    progressRectangle = new RectangleF(w_high - v, h_low, v, h_high - h_low);
+                    progressBrush = new LinearGradientBrush(progressRectangle, _setStartColor, _setEndColor, -180f);
+                    break;
+                case DirectionEnum.Up:
+                    v = (h_high - h_low) * _setValue / 100;
+                    progressRectangle = new RectangleF(w_low, h_high - v, w_high - w_low, v);
+                    progressBrush = new LinearGradientBrush(progressRectangle, _setStartColor, _setEndColor, -90f);
+                    break;
+                case DirectionEnum.Down:
+                    v = (h_high - h_low) * _setValue / 100;
+                    progressRectangle = new RectangleF(w_low, h_low, w_high - w_low, v);
+                    progressBrush = new LinearGradientBrush(progressRectangle, _setStartColor, _setEndColor, 90f);
+                    break;
 
-                progressRectangle = new RectangleF(w_low, h_low, v, h_high - h_low);
-                progressBrush = new LinearGradientBrush(progressRectangle, _setStartColor, _setEndColor, LinearGradientMode.Horizontal);
             }
-            else
-            {
-                v = (h_high - h_low) * _setValue / 100;
-
-                progressRectangle = new RectangleF(w_low, h_high - v, w_high - w_low, v);
-                progressBrush = new LinearGradientBrush(progressRectangle, _setStartColor, _setEndColor, -90f);
-            }
-
             g.FillRectangle(progressBrush, progressRectangle);
 
             // 繪製進度文字
@@ -324,27 +365,30 @@ namespace MyUILibrary
                     goto modifyFinish;
                 }
 
-                if (_setDirection == DirectionEnum.Horizontal)
+                switch (_setDirection)
                 {
-                    if (textSize.Height > Height)
-                    {
-                        --size;
-                        font.Dispose();
-                        font = new Font("Arial", size);
-                        textSize = g.MeasureString(_setValue.ToString(), font);
-                        goto modifyLoop;
-                    }
-                }
-                else
-                {
-                    if (textSize.Width > Width)
-                    {
-                        --size;
-                        font.Dispose();
-                        font = new Font("Arial", size);
-                        textSize = g.MeasureString(_setValue.ToString(), font);
-                        goto modifyLoop;
-                    }
+                    case DirectionEnum.Right:
+                    case DirectionEnum.Left:
+                        if (textSize.Height > Height)
+                        {
+                            --size;
+                            font.Dispose();
+                            font = new Font("Arial", size);
+                            textSize = g.MeasureString(_setValue.ToString(), font);
+                            goto modifyLoop;
+                        }
+                        break;
+                    case DirectionEnum.Up:
+                    case DirectionEnum.Down:
+                        if (textSize.Width > Width)
+                        {
+                            --size;
+                            font.Dispose();
+                            font = new Font("Arial", size);
+                            textSize = g.MeasureString(_setValue.ToString(), font);
+                            goto modifyLoop;
+                        }
+                        break;
                 }
 
                 modifyFinish:

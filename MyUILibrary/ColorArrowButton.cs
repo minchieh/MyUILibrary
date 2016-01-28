@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 namespace MyUILibrary
 {
-
     /// <summary>
     /// 分層顏色箭頭按鈕
     /// </summary>
@@ -64,7 +58,10 @@ namespace MyUILibrary
 
         #region 公開屬性
 
-        internal DirectionEnum _setDirection = DirectionEnum.Left;
+        /// <summary>
+        /// 設置箭頭方向
+        /// </summary>
+        protected DirectionEnum _setDirection = DirectionEnum.Left;
         /// <summary>
         /// 設置箭頭方向
         /// </summary>
@@ -86,7 +83,10 @@ namespace MyUILibrary
             }
         }
 
-        internal Color _setLevelDownColor = Color.Red;
+        /// <summary>
+        /// 設置分層選中按下顏色
+        /// </summary>
+        protected Color _setLevelDownColor = Color.Red;
         /// <summary>
         /// 設置分層選中按下顏色
         /// </summary>
@@ -106,7 +106,10 @@ namespace MyUILibrary
             }
         }
 
-        internal Color _setLevelUpColor = Color.Yellow;
+        /// <summary>
+        /// 設置分層選中放開顏色
+        /// </summary>
+        protected Color _setLevelUpColor = Color.Yellow;
         /// <summary>
         /// 設置分層選中放開顏色
         /// </summary>
@@ -126,7 +129,10 @@ namespace MyUILibrary
             }
         }
 
-        internal Color _setBackgroundColor = Color.Black;
+        /// <summary>
+        /// 設置箭頭背景顏色
+        /// </summary>
+        protected Color _setBackgroundColor = Color.Black;
         /// <summary>
         /// 設置箭頭背景顏色
         /// </summary>
@@ -146,7 +152,10 @@ namespace MyUILibrary
             }
         }
 
-        internal int _setEdgeWidth = 3;
+        /// <summary>
+        /// 設定邊線寬度
+        /// </summary>
+        protected int _setEdgeWidth = 3;
         /// <summary>
         /// 設定邊線寬度
         /// </summary>
@@ -178,7 +187,11 @@ namespace MyUILibrary
 
         #region 唯讀屬性
 
-        internal Point[,] _getLevelPoint = new Point[4, 4];
+        /// <summary>
+        /// 取得各層級所有點
+        /// 共4層級, 每1層級內有4點存放(層級4為三角形只有3點)
+        /// </summary>
+        protected Point[,] _getLevelPoint = new Point[4, 4];
         /// <summary>
         /// 取得各層級所有點
         /// 共4層級, 每1層級內有4點存放(層級4為三角形只有3點)
@@ -191,8 +204,10 @@ namespace MyUILibrary
             }
         }
 
-
-        internal int _getLevel = -1;
+        /// <summary>
+        /// 取得目前選取層級
+        /// </summary>
+        protected int _getLevel = -1;
         /// <summary>
         /// 取得目前選取層級
         /// </summary>
@@ -288,7 +303,10 @@ namespace MyUILibrary
             }
         }
 
-        internal MouseEventArgs _getMouseStatus = new MouseEventArgs(MouseButtons.None, 0, 0, 0, 0);
+        /// <summary>
+        /// 取得目前滑鼠狀態
+        /// </summary>
+        protected MouseEventArgs _getMouseStatus = new MouseEventArgs(MouseButtons.None, 0, 0, 0, 0);
         /// <summary>
         /// 取得目前滑鼠狀態
         /// </summary>
@@ -304,8 +322,8 @@ namespace MyUILibrary
 
         #region 內部變數
 
-        internal bool _generationLevelPointProcess = true;
-        internal bool _mouseEnter = false;
+        protected bool _generationLevelPointProcess = true;
+        protected bool _mouseEnter = false;
 
         #endregion
 
@@ -333,7 +351,6 @@ namespace MyUILibrary
             // 啟用雙緩衝
             this.DoubleBuffered = true;
         }
-
 
         #endregion
 
@@ -642,6 +659,7 @@ namespace MyUILibrary
             _mouseEnter = false;
             this.Invalidate();
         }
+
         private void ColorArrowButton_MouseEnter(object sender, EventArgs e)
         {
             _mouseEnter = true;
@@ -650,12 +668,15 @@ namespace MyUILibrary
 
         #endregion
 
+        #region 尺寸
+
         private void ColorArrowButton_Resize(object sender, EventArgs e)
         {
             _generationLevelPointProcess = true;
             this.Invalidate();
         }
 
+        #endregion
 
     }
 }

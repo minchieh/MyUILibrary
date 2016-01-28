@@ -47,6 +47,12 @@
     <Compile Include="ColorArrowButton.Designer.cs">
       <DependentUpon>ColorArrowButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="ColorArrowLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ColorArrowLabel.Designer.cs">
+      <DependentUpon>ColorArrowLabel.cs</DependentUpon>
+    </Compile>
     <Compile Include="ColorProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -58,6 +64,9 @@
   <ItemGroup>
     <EmbeddedResource Include="ColorArrowButton.resx">
       <DependentUpon>ColorArrowButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ColorArrowLabel.resx">
+      <DependentUpon>ColorArrowLabel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ColorProgressBar.resx">
       <DependentUpon>ColorProgressBar.cs</DependentUpon>
