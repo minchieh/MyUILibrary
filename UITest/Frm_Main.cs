@@ -27,5 +27,11 @@ namespace UITest
             ColorProgressBarTest obj = new ColorProgressBarTest();
             obj.Show();
         }
+
+        private void btn_AxisViewTest_Click(object sender, EventArgs e)
+        {
+            AxisViewTest obj = new AxisViewTest();
+            obj.Show();
+        }
     }
 }

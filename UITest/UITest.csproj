@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AxisViewTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AxisViewTest.Designer.cs">
+      <DependentUpon>AxisViewTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="ColorArrowButtonTest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +70,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AxisViewTest.resx">
+      <DependentUpon>AxisViewTest.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ColorArrowButtonTest.resx">
       <DependentUpon>ColorArrowButtonTest.cs</DependentUpon>
     </EmbeddedResource>

@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\MyUILibrary.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,17 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AxisView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AxisView.Designer.cs">
+      <DependentUpon>AxisView.cs</DependentUpon>
+    </Compile>
     <Compile Include="ColorArrowButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ColorArrowButton.Designer.cs">
       <DependentUpon>ColorArrowButton.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ColorArrowLabel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ColorArrowLabel.Designer.cs">
-      <DependentUpon>ColorArrowLabel.cs</DependentUpon>
     </Compile>
     <Compile Include="ColorProgressBar.cs">
       <SubType>UserControl</SubType>
@@ -60,16 +61,25 @@
       <DependentUpon>ColorProgressBar.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XYAxisView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="XYAxisView.Designer.cs">
+      <DependentUpon>XYAxisView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AxisView.resx">
+      <DependentUpon>AxisView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ColorArrowButton.resx">
       <DependentUpon>ColorArrowButton.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ColorArrowLabel.resx">
-      <DependentUpon>ColorArrowLabel.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ColorProgressBar.resx">
       <DependentUpon>ColorProgressBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XYAxisView.resx">
+      <DependentUpon>XYAxisView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

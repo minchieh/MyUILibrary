@@ -30,6 +30,7 @@
         {
             this.btn_ColorArrowTest = new System.Windows.Forms.Button();
             this.btn_ColorProgressBarTest = new System.Windows.Forms.Button();
+            this.btn_AxisViewTest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_ColorArrowTest
@@ -52,11 +53,22 @@
             this.btn_ColorProgressBarTest.UseVisualStyleBackColor = true;
             this.btn_ColorProgressBarTest.Click += new System.EventHandler(this.btn_ColorProgressBarTest_Click);
             // 
+            // btn_AxisViewTest
+            // 
+            this.btn_AxisViewTest.Location = new System.Drawing.Point(12, 70);
+            this.btn_AxisViewTest.Name = "btn_AxisViewTest";
+            this.btn_AxisViewTest.Size = new System.Drawing.Size(97, 23);
+            this.btn_AxisViewTest.TabIndex = 0;
+            this.btn_AxisViewTest.Text = "AxisViewTest";
+            this.btn_AxisViewTest.UseVisualStyleBackColor = true;
+            this.btn_AxisViewTest.Click += new System.EventHandler(this.btn_AxisViewTest_Click);
+            // 
             // Frm_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.btn_AxisViewTest);
             this.Controls.Add(this.btn_ColorProgressBarTest);
             this.Controls.Add(this.btn_ColorArrowTest);
             this.Name = "Frm_Main";
@@ -69,5 +81,6 @@
 
         private System.Windows.Forms.Button btn_ColorArrowTest;
         private System.Windows.Forms.Button btn_ColorProgressBarTest;
+        private System.Windows.Forms.Button btn_AxisViewTest;
     }
 }

@@ -283,6 +283,10 @@ namespace MyUILibrary
 
         #region 繪圖
 
+        /// <summary>
+        /// 重繪
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics g = e.Graphics;

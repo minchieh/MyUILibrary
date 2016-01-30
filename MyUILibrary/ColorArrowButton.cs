@@ -322,7 +322,14 @@ namespace MyUILibrary
 
         #region 內部變數
 
+        /// <summary>
+        /// 產生層級點
+        /// </summary>
         protected bool _generationLevelPointProcess = true;
+
+        /// <summary>
+        /// 滑鼠進入
+        /// </summary>
         protected bool _mouseEnter = false;
 
         #endregion
