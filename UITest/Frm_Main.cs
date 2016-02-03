@@ -33,5 +33,11 @@ namespace UITest
             AxisViewTest obj = new AxisViewTest();
             obj.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            XYAxisViewTest obj = new XYAxisViewTest();
+            obj.Show();
+        }
     }
 }

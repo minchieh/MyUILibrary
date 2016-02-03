@@ -311,6 +311,40 @@ namespace MyUILibrary
 
         #endregion
 
+        #region 唯讀屬性
+
+        /// <summary>
+        /// 軸標籤
+        /// </summary>
+        protected float[] _getAxisLabels = new float[101];
+        /// <summary>
+        /// 軸標籤
+        /// </summary>
+        public float[] getAxisLabels
+        {
+            get
+            {
+                return _getAxisLabels;
+            }
+        }
+
+        /// <summary>
+        /// 取得設定值所在標籤位置
+        /// </summary>
+        protected float _getValueLabel = 0;
+        /// <summary>
+        /// 取得設定值所在標籤位置
+        /// </summary>
+        public float getValueLabel
+        {
+            get
+            {
+                return _getValueLabel;
+            }
+        }
+
+        #endregion
+
         #region 內部變數
 
         /// <summary>
@@ -410,9 +444,6 @@ namespace MyUILibrary
             Brush axisBrush = new SolidBrush(_setAxisBackgroundColor);
 
             float delta = 0;
-
-            float axis_point = 0;
-
             // 畫座標軸背景
             RectangleF axisRectange = new RectangleF(axis_widthedge, axis_heightedge,
                         axis_width, axis_height);
@@ -427,14 +458,14 @@ namespace MyUILibrary
                     // 畫坐標軸標示
                     for (int idx = 0; idx <= 100; idx++)
                     {
-                        axis_point = axis_heightedge + idx * delta;
+                        _getAxisLabels[idx] =  axis_heightedge + idx * delta;
                         if (idx % 10 == 0)
                         {
                             g.DrawLine(axisPen,
                                axis_widthedge,
-                               axis_point,
+                               _getAxisLabels[idx],
                                axis_widthedge + axis_width - 2f,
-                               axis_point);
+                               _getAxisLabels[idx]);
                         }
                         else
                         {
@@ -442,17 +473,17 @@ namespace MyUILibrary
                             {
                                 g.DrawLine(axisPen,
                                     axis_widthedge,
-                                    axis_point,
+                                    _getAxisLabels[idx],
                                     axis_widthedge + axis_width / 2,
-                                    axis_point);
+                                    _getAxisLabels[idx]);
                             }
                             else
                             {
                                 g.DrawLine(axisPen,
                                     axis_widthedge + axis_width / 2,
-                                    axis_point,
+                                    _getAxisLabels[idx],
                                     axis_widthedge + axis_width - 2f,
-                                    axis_point);
+                                    _getAxisLabels[idx]);
                             }
                         }
                     }
@@ -464,32 +495,32 @@ namespace MyUILibrary
                     // 畫坐標軸標示
                     for (int idx = 0; idx <= 100; idx++)
                     {
-                        axis_point = axis_widthedge + idx * delta;
+                        _getAxisLabels[idx] = axis_widthedge + idx * delta;
                         if (idx % 10 == 0)
                         {
                             g.DrawLine(axisPen,
-                               axis_point,
-                               axis_heightedge,
-                               axis_point,
-                               axis_heightedge + axis_height - 2f);
+                                _getAxisLabels[idx],
+                                axis_heightedge,
+                                _getAxisLabels[idx],
+                                axis_heightedge + axis_height - 2f);
                         }
                         else
                         {
                             if (_setPointDirection == DirectionEnum.Up)
                             {
                                 g.DrawLine(axisPen,
-                                axis_point,
-                                axis_heightedge,
-                                axis_point,
-                                axis_heightedge + axis_height / 2);
+                                    _getAxisLabels[idx],
+                                    axis_heightedge,
+                                    _getAxisLabels[idx],
+                                    axis_heightedge + axis_height / 2);
                             }
                             else
                             {
                                 g.DrawLine(axisPen,
-                                axis_point,
-                                axis_heightedge + axis_height / 2,
-                                axis_point,
-                                axis_heightedge + axis_height - 2f);
+                                    _getAxisLabels[idx],
+                                    axis_heightedge + axis_height / 2,
+                                    _getAxisLabels[idx],
+                                    axis_heightedge + axis_height - 2f);
                             }
                         }
                     }
@@ -527,6 +558,7 @@ namespace MyUILibrary
                     valueLocation = pValue * (axis_height) / 100f;
                     break;
             }
+            _getValueLabel = valueLocation;
 
             GraphicsPath gp = new GraphicsPath(FillMode.Alternate);
             PointF[] pathPoint = new PointF[6];
